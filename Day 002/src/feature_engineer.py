@@ -13,7 +13,7 @@ def collect_data(symbol,period="1mo",interval="1d",start_date=None,end_date=None
         df = ticker.history(period=period,interval=interval,start=start_date,end=end_date)
         df = pandas.DataFrame(df).drop(columns=["Dividends","Stock Splits"])
 
-        df.index = df.index.tz_localize(None)   # Pandas do not support datetime with time zone
+        df["Date"] = df["Date"].tz_localize(None)   # Pandas do not support datetime with time zone
         df.to_excel(f"{symbol}.xlsx")
 
     df = pandas.read_excel(f"{symbol}.xlsx")
